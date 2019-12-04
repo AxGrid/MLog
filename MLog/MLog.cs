@@ -20,6 +20,11 @@ namespace AxGrid
         {
             UnityEngine.Debug.LogWarning(s);
         }
+        
+        public void Warn(Exception e)
+        {
+            UnityEngine.Debug.LogWarning(e);
+        }
 
         public void Error(string s)
         {
@@ -39,16 +44,20 @@ namespace AxGrid
         public void Debug(string message, params object[] args){ log.Debug(Smart.Format(message, args)); }
         public void Info(string message, params object[] args){ log.Info(Smart.Format(message, args)); }
         public void Warn(string message, params object[] args){ log.Warn(Smart.Format(message, args)); }
+        
+        public void Warn(Exception e){ log.Warn($"{e.Message}\n{e.StackTrace}"); }
+
+        
         public void Error(string message, params object[] args){ log.Error(Smart.Format(message, args)); }
 
         public void Error(Exception e, string message, params object[] args)
         {
-            log.Error(Smart.Format(message,args) +"\n"+string.Format("{0}\n{1}",e.Message, e.StackTrace) );
+            log.Error(Smart.Format(message,args) + $"\n{e.Message}\n{e.StackTrace}");
         }
 
         public void Error(Exception e)
         {
-            log.Error(string.Format("{0}\n{1}",e.Message, e.StackTrace));
+            log.Error($"{e.Message}\n{e.StackTrace}");
         }
 
         public MLog(Type type)
@@ -68,6 +77,8 @@ namespace AxGrid
         public static void Debug(string message, params object[] args){ log.Debug(message, args); }
         public static void Info(string message, params object[] args){ log.Info(message, args); }
         public static void Warn(string message, params object[] args){ log.Warn(message, args); }
+        
+        public static void Warn(Exception e){ log.Warn(e); }
         public static void Error(string message, params object[] args){ log.Error(message, args); }
 
         public static void Error(Exception e, string message, params object[] args)
